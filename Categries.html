@@ -1,40 +1,175 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Categories</title>
     <script src="data.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 2.5em;
+            margin: 30px 0 50px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .category-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 1.5em;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .category-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Different colors for each category */
+        .category-card:nth-child(1) { border-top: 5px solid #FF6B6B; }
+        .category-card:nth-child(2) { border-top: 5px solid #4ECDC4; }
+        .category-card:nth-child(3) { border-top: 5px solid #FFE66D; }
+        .category-card:nth-child(4) { border-top: 5px solid #A8E6CF; }
+        .category-card:nth-child(5) { border-top: 5px solid #FF8B94; }
+        .category-card:nth-child(6) { border-top: 5px solid #FFA07A; }
+        .category-card:nth-child(7) { border-top: 5px solid #98D8C8; }
+        .category-card:nth-child(8) { border-top: 5px solid #C7CEEA; }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2em;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <!-- Header -->
     <div id="header"></div>
     <script>
-        // header.html ko fetch karke inject karna
         fetch("header.html")
             .then(response => response.text())
             .then(data => {
                 document.getElementById("header").innerHTML = data;
-            });
+            })
+            .catch(error => console.log('Header not found'));
     </script>
 
+    <div class="container">
+        <h1 class="page-title">Our Categories</h1>
+        
+        <div class="categories-grid">
+            <div class="category-card" onclick="location.href='#toffees'">
+                <div class="category-icon">🍬</div>
+                <div class="category-name">Toffees</div>
+                <div class="category-description">Sweet and chewy treats</div>
+            </div>
 
+            <div class="category-card" onclick="location.href='#biscuits'">
+                <div class="category-icon">🍪</div>
+                <div class="category-name">Biscuits</div>
+                <div class="category-description">Crunchy and delicious</div>
+            </div>
 
+            <div class="category-card" onclick="location.href='#papad-cake'">
+                <div class="category-icon">🥞</div>
+                <div class="category-name">Papad Cake</div>
+                <div class="category-description">Crispy snack items</div>
+            </div>
 
+            <div class="category-card" onclick="location.href='#chocolate'">
+                <div class="category-icon">🍫</div>
+                <div class="category-name">Chocolate</div>
+                <div class="category-description">Rich and creamy</div>
+            </div>
 
+            <div class="category-card" onclick="location.href='#lollypop'">
+                <div class="category-icon">🍭</div>
+                <div class="category-name">Lollypop</div>
+                <div class="category-description">Fun candy on a stick</div>
+            </div>
 
+            <div class="category-card" onclick="location.href='#nimco'">
+                <div class="category-icon">🥨</div>
+                <div class="category-name">Nimco</div>
+                <div class="category-description">Savory snack mix</div>
+            </div>
+
+            <div class="category-card" onclick="location.href='#beage'">
+                <div class="category-icon">🏷️</div>
+                <div class="category-name">Beage</div>
+                <div class="category-description">Special items</div>
+            </div>
+
+            <div class="category-card" onclick="location.href='#other'">
+                <div class="category-icon">✨</div>
+                <div class="category-name">Other</div>
+                <div class="category-description">More options</div>
+            </div>
+        </div>
+    </div>
 
     <div id="footer"></div>
     <script>
-        // header.html ko fetch karke inject karna
         fetch("footer.html")
             .then(response => response.text())
             .then(data => {
                 document.getElementById("footer").innerHTML = data;
-            });
+            })
+            .catch(error => console.log('Footer not found'));
     </script>
 </body>
 

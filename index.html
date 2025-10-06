@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids Snacks Store - Home</title>
+    <script src="data.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .hero-banner {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff" opacity="0.1"/></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-banner h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-banner p {
+            font-size: 1.3rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            max-width: 300px;
+            margin: 2rem auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .category-filter {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .category-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 0.8rem 2rem;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .products-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .products-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .favorite-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .favorite-btn.active {
+            color: #ff4757;
+            animation: heartBeat 0.3s ease;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-details-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-details-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 0.8rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 3rem;
+            color: #999;
+            font-size: 1.2rem;
+        }
+
+        .show-more-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .show-more-btn {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .show-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .show-more-btn.hidden {
+            display: none;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+
+            .hero-banner p {
+                font-size: 1rem;
+            }
+
+            .category-btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <script>
+        fetch("header.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("header").innerHTML = data;
+            });
+    </script>
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1>🍭 Delicious Snacks for Happy Kids! 🍪</h1>
+            <p>Explore our tasty collection of biscuits, toffees, snacks, and drinks</p>
+            <div class="hero-image">🎉🍬🍫🧃</div>
+        </div>
+    </section>
+
+    <section class="category-filter">
+        <div class="category-buttons">
+            <button class="category-btn active" data-category="all">All</button>
+            <button class="category-btn" data-category="biscuits">🍪 Biscuits</button>
+            <button class="category-btn" data-category="toffees">🍬 Toffees</button>
+            <button class="category-btn" data-category="snacks">🍿 Snacks</button>
+            <button class="category-btn" data-category="drinks">🧃 Drinks</button>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <h2 id="section-title">All Products</h2>
+        <div class="product-grid" id="productGrid"></div>
+        <div class="show-more-container">
+            <button class="show-more-btn" id="showMoreBtn" onclick="toggleProducts()">
+                Show More
+            </button>
+        </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let currentCategory = 'all';
+        let showingAll = false;
+        const initialProductCount = 6;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(currentCategory);
+            setupCategoryFilters();
+        });
+
+        function getFavorites() {
+            const favoritesData = localStorage.getItem('favorites');
+            return favoritesData ? JSON.parse(favoritesData) : [];
+        }
+
+        function renderProducts(category) {
+            const productGrid = document.getElementById('productGrid');
+            const sectionTitle = document.getElementById('section-title');
+            const showMoreBtn = document.getElementById('showMoreBtn');
+
+            const filteredProducts = category === 'all'
+                ? productsData
+                : productsData.filter(p => p.category === category);
+
+            if (filteredProducts.length === 0) {
+                productGrid.innerHTML = '<div class="no-products">No products found in this category</div>';
+                showMoreBtn.classList.add('hidden');
+                return;
+            }
+
+            sectionTitle.textContent = category === 'all'
+                ? 'All Products'
+                : category.charAt(0).toUpperCase() + category.slice(1);
+
+            const productsToShow = showingAll ? filteredProducts : filteredProducts.slice(0, initialProductCount);
+            const favorites = getFavorites();
+
+            productGrid.innerHTML = productsToShow.map(product => {
+                const isFavorite = favorites.includes(product.id);
+                return `
+                    <div class="product-card">
+                        <div class="product-image" onclick="viewProduct(${product.id})">
+                            ${product.emoji}
+                            <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="toggleFavorite(${product.id}); event.stopPropagation();">
+                                ${isFavorite ? '❤️' : '🤍'}
+                            </button>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-price">$${product.price.toFixed(2)}</div>
+                            <div class="product-actions">
+                                <button class="view-details-btn" onclick="viewProduct(${product.id})">
+                                    View Details
+                                </button>
+                                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                                    🛒 Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (filteredProducts.length <= initialProductCount) {
+                showMoreBtn.classList.add('hidden');
+            } else {
+                showMoreBtn.classList.remove('hidden');
+                showMoreBtn.textContent = showingAll ? 'Show Less' : 'Show More';
+            }
+        }
+
+        function toggleFavorite(productId) {
+            let favorites = getFavorites();
+            const index = favorites.indexOf(productId);
+            const product = productsData.find(p => p.id === productId);
+
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast(`💔 ${product.name} removed from favorites`);
+            } else {
+                favorites.push(productId);
+                showToast(`❤️ ${product.name} added to favorites`);
+            }
+
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            renderProducts(currentCategory);
+        }
+
+        function addToCart(productId) {
+            const product = productsData.find(p => p.id === productId);
+            if (!product) return;
+
+            const cartData = localStorage.getItem('cartData');
+            let cart = cartData ? JSON.parse(cartData) : [];
+
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+                showToast(`🛒 ${product.name} quantity updated in cart!`);
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    emoji: product.emoji,
+                    category: product.category,
+                    quantity: 1
+                });
+                showToast(`✅ ${product.name} added to cart!`);
+            }
+
+            localStorage.setItem('cartData', JSON.stringify(cart));
+            window.dispatchEvent(new Event('cartUpdated'));
+        }
+
+        function toggleProducts() {
+            showingAll = !showingAll;
+            renderProducts(currentCategory);
+
+            if (!showingAll) {
+                document.querySelector('.products-section').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function setupCategoryFilters() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    currentCategory = btn.dataset.category;
+                    showingAll = false;
+                    renderProducts(currentCategory);
+                });
+            });
+        }
+
+        function viewProduct(productId) {
+            window.location.href = `singleProduct.html?id=${productId}`;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+
+    <div id="footer"></div>
+    <script>
+        fetch("footer.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("footer").innerHTML = data;
+            });
+    </script>
+</body>
+</html>

@@ -4,30 +4,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Special Offers</title>
     <script src="data.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 3em;
+            margin: 30px 0 20px 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 50px;
+            opacity: 0.9;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .offers-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .offer-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        .offer-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #ff4757;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(255,71,87,0.4);
+        }
+
+        .offer-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .offer-icon {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        .offer-title {
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .offer-discount {
+            color: #FFD700;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .offer-body {
+            padding: 30px;
+        }
+
+        .offer-description {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .offer-items {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .offer-items ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .offer-items li {
+            padding: 8px 0;
+            color: #333;
+            font-size: 1em;
+        }
+
+        .offer-items li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .offer-validity {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .offer-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .offer-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Surprise Offer Special Styling */
+        .surprise-card {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            grid-column: 1 / -1;
+        }
+
+        .surprise-card .offer-header {
+            background: transparent;
+        }
+
+        .surprise-card .offer-body {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin: 20px;
+        }
+
+        .surprise-card .offer-title {
+            font-size: 2.5em;
+            animation: rainbow 3s infinite;
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            17% { color: #ff8800; }
+            33% { color: #ffff00; }
+            50% { color: #00ff00; }
+            67% { color: #0088ff; }
+            83% { color: #8800ff; }
+            100% { color: #ff0000; }
+        }
+
+        .surprise-icon {
+            font-size: 5em;
+            animation: rotate 3s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2em;
+            }
+
+            .offers-container {
+                grid-template-columns: 1fr;
+            }
+
+            .surprise-card {
+                grid-column: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <!-- Header -->
     <div id="header"></div>
     <script>
-        // header.html ko fetch karke inject karna
         fetch("header.html")
             .then(response => response.text())
             .then(data => {
                 document.getElementById("header").innerHTML = data;
-            });
+            })
+            .catch(error => console.log('Header not found'));
     </script>
+
+    <div class="container">
+        <h1 class="page-title">🎉 Special Offers 🎉</h1>
+        <p class="subtitle">Limited Time Deals - Grab Them Before They're Gone!</p>
+
+        <div class="offers-container">
+            <!-- Offer 1: Combo Deal -->
+            <div class="offer-card">
+                <div class="offer-badge">HOT DEAL</div>
+                <div class="offer-header">
+                    <div class="offer-icon">🍬</div>
+                    <h2 class="offer-title">Sweet Combo</h2>
+                    <div class="offer-discount">30% OFF</div>
+                </div>
+                <div class="offer-body">
+                    <p class="offer-description">Get amazing discounts on your favorite sweet treats!</p>
+                    <div class="offer-items">
+                        <ul>
+                            <li>Buy 3 Toffee Packs Get 1 Free</li>
+                            <li>Free Lollypop with every purchase</li>
+                            <li>Special gift wrapping included</li>
+                        </ul>
+                    </div>
+                    <p class="offer-validity">⏰ Valid till: 31st October 2025</p>
+                    <a href="#" class="offer-button">Claim Offer</a>
+                </div>
+            </div>
+
+            <!-- Offer 2: Chocolate Bonanza -->
+            <div class="offer-card">
+                <div class="offer-badge">BESTSELLER</div>
+                <div class="offer-header">
+                    <div class="offer-icon">🍫</div>
+                    <h2 class="offer-title">Chocolate Bonanza</h2>
+                    <div class="offer-discount">25% OFF</div>
+                </div>
+                <div class="offer-body">
+                    <p class="offer-description">Indulge in premium chocolates at unbeatable prices!</p>
+                    <div class="offer-items">
+                        <ul>
+                            <li>All imported chocolates included</li>
+                            <li>Buy 2 Get 1 Free on selected items</li>
+                            <li>Free home delivery on orders above Rs.500</li>
+                        </ul>
+                    </div>
+                    <p class="offer-validity">⏰ Valid till: 15th November 2025</p>
+                    <a href="#" class="offer-button">Claim Offer</a>
+                </div>
+            </div>
+
+            <!-- Offer 3: Snack Attack -->
+            <div class="offer-card">
+                <div class="offer-badge">NEW</div>
+                <div class="offer-header">
+                    <div class="offer-icon">🥨</div>
+                    <h2 class="offer-title">Snack Attack</h2>
+                    <div class="offer-discount">40% OFF</div>
+                </div>
+                <div class="offer-body">
+                    <p class="offer-description">Stock up on your favorite savory snacks!</p>
+                    <div class="offer-items">
+                        <ul>
+                            <li>Nimco family pack at half price</li>
+                            <li>Free Papad Cake samples</li>
+                            <li>Mix & Match any 5 items</li>
+                        </ul>
+                    </div>
+                    <p class="offer-validity">⏰ Valid till: 30th October 2025</p>
+                    <a href="#" class="offer-button">Claim Offer</a>
+                </div>
+            </div>
+
+            <!-- Offer 4: Biscuit Bundle -->
+            <div class="offer-card">
+                <div class="offer-badge">LIMITED</div>
+                <div class="offer-header">
+                    <div class="offer-icon">🍪</div>
+                    <h2 class="offer-title">Biscuit Bundle</h2>
+                    <div class="offer-discount">35% OFF</div>
+                </div>
+                <div class="offer-body">
+                    <p class="offer-description">Premium biscuits for your tea time!</p>
+                    <div class="offer-items">
+                        <ul>
+                            <li>All brands included</li>
+                            <li>Buy 4 packs get 2 free</li>
+                            <li>Special family size available</li>
+                        </ul>
+                    </div>
+                    <p class="offer-validity">⏰ Valid till: 25th October 2025</p>
+                    <a href="#" class="offer-button">Claim Offer</a>
+                </div>
+            </div>
+
+            <!-- SURPRISE OFFER - Special Card -->
+            <div class="offer-card surprise-card">
+                <div class="offer-badge">🎁 MYSTERY</div>
+                <div class="offer-header">
+                    <div class="offer-icon surprise-icon">🎊</div>
+                    <h2 class="offer-title">SURPRISE BONANZA</h2>
+                    <div class="offer-discount">UP TO 50% OFF</div>
+                </div>
+                <div class="offer-body">
+                    <p class="offer-description" style="font-size: 1.3em; text-align: center; color: #d63031; font-weight: bold;">
+                        🎉 MYSTERY MEGA DEAL 🎉
+                    </p>
+                    <div class="offer-items">
+                        <ul>
+                            <li>Mystery Box - Get random items worth Rs.1000 for just Rs.500!</li>
+                            <li>Guaranteed 3-5 premium products in every box</li>
+                            <li>Every 10th customer gets DOUBLE items</li>
+                            <li>Golden Ticket - 1 lucky winner gets FREE shopping for a month!</li>
+                            <li>Exclusive limited edition items only in surprise boxes</li>
+                            <li>100% satisfaction guarantee or money back</li>
+                        </ul>
+                    </div>
+                    <p class="offer-validity" style="color: #d63031; font-weight: bold; font-size: 1.1em;">
+                        ⚡ FLASH SALE - Only 50 Boxes Available!
+                    </p>
+                    <a href="#" class="offer-button" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); font-size: 1.3em;">
+                        🎁 GET YOUR SURPRISE BOX NOW! 🎁
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="footer"></div>
     <script>
-        // header.html ko fetch karke inject karna
         fetch("footer.html")
             .then(response => response.text())
             .then(data => {
                 document.getElementById("footer").innerHTML = data;
-            });
+            })
+            .catch(error => console.log('Footer not found'));
     </script>
 </body>
 
